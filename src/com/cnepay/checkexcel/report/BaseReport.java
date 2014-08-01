@@ -56,8 +56,6 @@ public abstract class BaseReport {
 	public int maxDay = 0;
 	protected int lastMaxDay = 0;
 
-	// 日期检测设置
-	protected Map<String, DayCell> daysMap = new HashMap<String, DayCell>();
 
 	// 单表统计设置
 	protected Map<String, String[]> singleTotalMap = new HashMap<String, String[]>();

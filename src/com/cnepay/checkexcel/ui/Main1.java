@@ -9,8 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,6 +62,8 @@ public class Main1 {
 	public static JButton btnCheck;
 	// 检查勾稽关系
 	public static JButton btnCheck1;
+	// 保存日志
+	public static JButton btnSave;
 	// 状态显示
 	public static JLabel lblStatus;
 
@@ -81,12 +88,16 @@ public class Main1 {
 		btnCheck = new JButton("  开始校验    ");
 		JLabel lblBlank1 = new JLabel("  ");
 		btnCheck1 = new JButton("  勾稽校验    ");
+		JLabel lblBlank2 = new JLabel("  ");
+		btnSave = new JButton("  保存日志    ");
 
 		panelButton.add(btnOpen);
 		panelButton.add(lblBlank);
 		panelButton.add(btnCheck);
 		panelButton.add(lblBlank1);
 		panelButton.add(btnCheck1);
+		panelButton.add(lblBlank2);
+		panelButton.add(btnSave);
 		contentPane.add(panelButton, BorderLayout.NORTH);
 
 		// 消息面板位置
@@ -184,7 +195,6 @@ public class Main1 {
 					panelMessage.addWarnMessage("没有找到Excel报表文件！请检查文件夹路径");
 					return;
 				}
-
 				Main1.isChecking = true;
 				freshUI();
 
@@ -207,6 +217,45 @@ public class Main1 {
 
 				Thread threadCheck = new Thread(new CheckThread2());
 				threadCheck.start();
+			}
+		});
+		// 点击【勾稽校验】按钮
+		btnSave.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				File f = new File("E:/检查日志.txt");
+				FileWriter fw;
+				try {
+					fw = new FileWriter(f);
+
+					String[] lineString = panelMessage.textArea.getText()
+							.split("\n");
+					for (String line : lineString) {
+						if (line.contains("错误")) {
+							fw.write(line + "\n");
+						}
+					}
+					fw.flush();
+					fw.close();
+
+					// File f1 = new File("E:/检查格式日志1.txt");
+					// if (!f.exists()) {
+					//
+					// f.createNewFile();
+					// }
+					// // 定义编码
+					// OutputStreamWriter write = new OutputStreamWriter(
+					// new FileOutputStream(f1), "UTF-8");
+					// BufferedWriter writer = new BufferedWriter(write);
+					// for (String line : lineString) {
+					// writer.write(line + "\n");
+					// }
+					// writer.close();
+				} catch (Exception e) {
+					System.out.println("写文件内容操作出错");
+					e.printStackTrace();
+				}
 			}
 		});
 		// 设置窗口事件
@@ -258,12 +307,14 @@ public class Main1 {
 			btnOpen.setEnabled(false);
 			btnCheck.setEnabled(false);
 			btnCheck1.setEnabled(false);
+			btnSave.setEnabled(false);
 			freshStatus("检测中");
 
 		} else {
 			btnOpen.setEnabled(true);
 			btnCheck.setEnabled(true);
 			btnCheck1.setEnabled(true);
+			btnSave.setEnabled(true);
 			freshStatus("已就绪");
 		}
 	}

@@ -13,7 +13,7 @@ public class BankSingleExcelReport1 extends BaseReport {
 		super(file);
 
 		// 命名以B开头
-		this.fileType = BaseExcelReport.TYPE_B;
+		this.fileType = BaseReport.TYPE_B;
 		// 命名使用下划线分为4节
 		this.fileNameSectionsNumber = 4;
 
@@ -22,5 +22,5 @@ public class BankSingleExcelReport1 extends BaseReport {
 		sheetNames[0] = "2-1";
 		sheetNames[1] = "2-2";
 	}
-	
+
 }

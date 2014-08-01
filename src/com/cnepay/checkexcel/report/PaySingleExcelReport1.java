@@ -29,12 +29,6 @@ public class PaySingleExcelReport1 extends BaseReport {
 		sheetNames[3] = "1-9";
 		sheetNames[4] = "1-10";
 		
-		// 日期校验设置
-		daysMap.put("1-1", new DayCell("A11", DayCell.COL_DIRECTION));
-		daysMap.put("1-3", new DayCell("E4", DayCell.ROW_DIRECTION));
-		daysMap.put("1-6", new DayCell("C4", DayCell.ROW_DIRECTION));
-		daysMap.put("1-9", new DayCell("C5", DayCell.ROW_DIRECTION));
-		daysMap.put("1-10", new DayCell("A9", DayCell.COL_DIRECTION));
 		
 		// 单表合计校验设置
 		singleTotalMap.put("1-1", new String[]{"B12", "C12", "D11"});
